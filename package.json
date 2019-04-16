@@ -1,0 +1,19 @@
+{
+  "name": "template-literals-engine",
+  "version": "0.0.1b",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "template",
+    "engine"
+  ],
+  "author": "Sergey Pershin",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pershin/template-literals-engine.git"
+  }
+}
