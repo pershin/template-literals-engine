@@ -14,6 +14,7 @@ var globalVariables = {};
 var templates = {};
 
 function View() {
+  var _this = this;
   var localVariables = {};
 
   this.assign = (name, value, globalScope) => {
@@ -36,15 +37,8 @@ function View() {
     return variables;
   };
 
-  this.render = function (filename) {
-    var _this, variables, functionBody, include;
-
-    _this = this;
-    variables = this.getTemplateVars();
-    functionBody = '';
-    include = function (filename) {
-      return _this.render(filename);
-    };
+  this.render = (filename) => {
+    var functionBody, rendered, variable, variables;
 
     if ('undefined' === typeof templates[filename]) {
       try {
@@ -54,12 +48,32 @@ function View() {
       }
     }
 
-    for (var variable in variables) {
+    variables = this.getTemplateVars();
+    functionBody = '';
+
+    for (variable in variables) {
       functionBody += `var ${variable} = variables['${variable}'];`;
     }
 
     functionBody += 'return `' + templates[filename] + '`;';
 
-    return (new Function('variables', 'include', functionBody))(variables, include);
+    try {
+      rendered = (new Function('variables', 'include', functionBody))(variables, include);
+    } catch (exception) {
+      return exception.message;
+    }
+
+    return rendered;
   };
+
+  function include(filename, variables) {
+    var variable;
+
+    for (variable in variables) {
+      _this.assign(variable, variables[variable]);
+    }
+
+    return _this.render(filename);
+  }
+
 }
