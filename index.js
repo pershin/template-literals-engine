@@ -22,6 +22,7 @@ function View() {
     } else {
       localVariables[name] = value;
     }
+
     return this;
   };
 
@@ -46,7 +47,11 @@ function View() {
     };
 
     if ('undefined' === typeof templates[filename]) {
-      templates[filename] = fs.readFileSync(filename);
+      try {
+        templates[filename] = fs.readFileSync(filename);
+      } catch (exception) {
+        return exception.message;
+      }
     }
 
     for (var variable in variables) {
