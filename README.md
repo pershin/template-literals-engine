@@ -40,7 +40,7 @@ console.log(view.render('index.html'));
 
 ```html
 <footer>
-  &copy; 2019
+  &copy; ${(new Date).getFullYear()}
 </footer>
 ```
 

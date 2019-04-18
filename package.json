@@ -1,6 +1,6 @@
 {
   "name": "template-literals-engine",
-  "version": "0.0.1b",
+  "version": "0.0.2b",
   "description": "",
   "main": "index.js",
   "scripts": {
